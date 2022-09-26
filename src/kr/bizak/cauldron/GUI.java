@@ -6,10 +6,11 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.io.File;
 
+/* Git commit Test */
+
 public class GUI extends JFrame {
     public GUI() {
         /* Create Container */
-
         setLayout(new BorderLayout());
 
         /* BorderLayout West Area */
