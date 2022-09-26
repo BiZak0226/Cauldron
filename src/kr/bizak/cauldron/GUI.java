@@ -5,6 +5,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.io.File;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 /* Git commit Test */
 
@@ -20,13 +22,21 @@ public class GUI extends JFrame {
 
         /* Search File List */
         int count = 0;
-        try{
-            String path = "src/image/icon/herb/";
-            File file = new File(path);
-            count = file.listFiles().length;
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
+        File dir = null;
+        String path = "src/image/icon/herb/";
+        File[] file = new File[0];
+        dir = new File(path);
+        file = dir.listFiles();
+        count=file.length;
+//        try{
+//            dir = new File(path);
+//            file = dir.listFiles();
+//            count=file.length;
+//        }catch (Exception ex){
+//            ex.printStackTrace();
+//        }
+
+
 
         /* Create Compoments */
         JPanel[] herbCompoments = new JPanel[count];
@@ -42,15 +52,20 @@ public class GUI extends JFrame {
             /* Herb Icon */
             herb[i] = new JLabel();
             herb[i].setLayout(new BorderLayout());
-            herbIcon = new ImageIcon("src/image/icon/herb/herb_" + (i+1) + ".png");
+            herbIcon = new ImageIcon(String.valueOf(file[i]));
             herb[i].setIcon(herbIcon);
 
             herb[i].setBorder(new TitledBorder(new LineBorder(Color.CYAN, 3)));
             /* Select Button */
             selection[i] = new JPanel();
             selection[i].setLayout(new GridLayout(2,1));
-            addButtons[i] = new JButton((i+1) + " add");
-            cancelButtons[i] = new JButton((i+1) + " cancle");
+
+            String herbName = String.valueOf(file[i]);
+            herbName = herbName.substring(path.length());
+            herbName = herbName.substring(0,herbName.length()-4);
+
+            addButtons[i] = new JButton(herbName + " add");
+            cancelButtons[i] = new JButton(herbName + " cancle");
             selection[i].add(addButtons[i]);
             selection[i].add(cancelButtons[i]);
 
