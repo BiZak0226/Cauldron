@@ -19,14 +19,15 @@ public class GUI extends JFrame {
         creditPanel.setLayout(new BorderLayout());
 
         JLabel creditLabel = new JLabel();
-        ImageIcon creditIcon = new ImageIcon("src/image/icon/system/credit.png");
+        ImageIcon creditIcon = new ImageIcon("src/image/icon/system/credits.png");
         creditLabel.setIcon(creditIcon);
 
-        JTextField credit = new JTextField();
-        credit.setEditable(false);
+        JTextField creditView = new JTextField();
+        creditView.setEditable(false);
+        creditView.setText("1,000,000" + "$");
 
         creditPanel.add(creditLabel, BorderLayout.WEST);
-        creditPanel.add(credit, BorderLayout.CENTER);
+        creditPanel.add(creditView, BorderLayout.CENTER);
 
 
 
@@ -138,10 +139,12 @@ public class GUI extends JFrame {
         herbPanel.setBorder(new TitledBorder(new LineBorder(Color.YELLOW, 3)));
         cauldronPanel.setBorder(new TitledBorder(new LineBorder(Color.YELLOW, 3)));
         southPanel.setBorder(new TitledBorder(new LineBorder(Color.YELLOW, 3)));
+        creditPanel.setBorder(new TitledBorder(new LineBorder(Color.YELLOW, 3)));
 
-        this.add(herbPanel,BorderLayout.WEST);
-        this.add(cauldronPanel,BorderLayout.CENTER);
-        this.add(southPanel,BorderLayout.SOUTH);
+        this.add(creditPanel, BorderLayout.NORTH);
+        this.add(herbPanel, BorderLayout.WEST);
+        this.add(cauldronPanel, BorderLayout.CENTER);
+        this.add(southPanel, BorderLayout.SOUTH);
 
         /* Set Frame */
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
