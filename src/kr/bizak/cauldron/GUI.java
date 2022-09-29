@@ -5,10 +5,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.io.File;
-import java.util.Arrays;
-import java.util.StringTokenizer;
-
-/* Git commit Test */
 
 public class GUI extends JFrame {
     public GUI() {
@@ -18,16 +14,19 @@ public class GUI extends JFrame {
         /* BorderLayout West Area */
         /* Select Herb Section Panel */
         JPanel herbPanel = new JPanel();
-        herbPanel.setLayout(new GridLayout(3,5));
 
         /* Search File List */
-        int count = 0;
-        File dir = null;
+        File dir;
         String path = "src/image/icon/herb/";
-        File[] file = new File[0];
+        File[] file;
         dir = new File(path);
         file = dir.listFiles();
-        count=file.length;
+
+        GridLayout gridLayout = new GridLayout((file.length/4)+1,4);
+        herbPanel.setLayout(gridLayout);
+        int grid = gridLayout.getColumns()*gridLayout.getRows();
+//        System.out.println("GridLayout :: " + gridLayout.getRows() +", "+ gridLayout.getColumns());
+
 //        try{
 //            dir = new File(path);
 //            file = dir.listFiles();
@@ -39,30 +38,40 @@ public class GUI extends JFrame {
 
 
         /* Create Compoments */
-        JPanel[] herbCompoments = new JPanel[count];
-        JLabel[] herb = new JLabel[count];
-        JPanel[] selection = new JPanel[count];
-        JButton[] addButtons = new JButton[count];
-        JButton[] cancelButtons = new JButton[count];
+        JPanel[] herbCompoments = new JPanel[grid];
+        JLabel[] herb = new JLabel[grid];
+        JPanel[] selection = new JPanel[grid];
+        JButton[] addButtons = new JButton[grid];
+        JButton[] cancelButtons = new JButton[grid];
         ImageIcon herbIcon;
         ImageIcon add = new ImageIcon("src/image/icon/add.png");
         ImageIcon cancel = new ImageIcon("src/image/icon/cancel.png");
 
-        for (int i = 0; i < count; i++) {
+//        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < grid; i++) {
+            int num=i;
+            if (i >= file.length){
+                num= file.length-1;
+            }
+            /* Get Herb Name */
+            String herbName = String.valueOf(file[num]);
+            herbName = herbName.substring(path.length());
+            herbName = herbName.substring(0,herbName.length()-4);
+
+            if(herbName.equals("herb_empty")){
+
+            }
+
             /* Herb Icon */
             herb[i] = new JLabel();
             herb[i].setLayout(new BorderLayout());
-            herbIcon = new ImageIcon(String.valueOf(file[i]));
+            herbIcon = new ImageIcon(String.valueOf(file[num]));
             herb[i].setIcon(herbIcon);
 
             herb[i].setBorder(new TitledBorder(new LineBorder(Color.CYAN, 3)));
             /* Select Button */
             selection[i] = new JPanel();
             selection[i].setLayout(new GridLayout(2,1));
-
-            String herbName = String.valueOf(file[i]);
-            herbName = herbName.substring(path.length());
-            herbName = herbName.substring(0,herbName.length()-4);
 
             addButtons[i] = new JButton(herbName + " add");
             cancelButtons[i] = new JButton(herbName + " cancle");
@@ -84,7 +93,7 @@ public class GUI extends JFrame {
         /* Create Cauldron Section Panel */
         JPanel cauldronPanel = new JPanel();
         cauldronPanel.setLayout(new BorderLayout());
-        ImageIcon calldronImage = new ImageIcon("src/image/icon/cauldron.png");
+        ImageIcon calldronImage = new ImageIcon("src/image/icon/system/cauldron.png");
         JLabel cauldronLabel = new JLabel();
         cauldronLabel.setIcon(calldronImage);
         JButton calB = new JButton();
@@ -110,7 +119,6 @@ public class GUI extends JFrame {
         herbPanel.setBorder(new TitledBorder(new LineBorder(Color.YELLOW, 3)));
         cauldronPanel.setBorder(new TitledBorder(new LineBorder(Color.YELLOW, 3)));
         southPanel.setBorder(new TitledBorder(new LineBorder(Color.YELLOW, 3)));
-
 
         this.add(herbPanel,BorderLayout.WEST);
         this.add(cauldronPanel,BorderLayout.CENTER);
