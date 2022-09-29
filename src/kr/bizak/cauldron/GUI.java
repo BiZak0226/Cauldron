@@ -9,7 +9,26 @@ import java.io.File;
 public class GUI extends JFrame {
     public GUI() {
         /* Create Container */
+
         setLayout(new BorderLayout());
+
+
+        /* BorderLayout North Area */
+        /* Credit Panel */
+        JPanel creditPanel = new JPanel();
+        creditPanel.setLayout(new BorderLayout());
+
+        JLabel creditLabel = new JLabel();
+        ImageIcon creditIcon = new ImageIcon("src/image/icon/system/credit.png");
+        creditLabel.setIcon(creditIcon);
+
+        JTextField credit = new JTextField();
+        credit.setEditable(false);
+
+        creditPanel.add(creditLabel, BorderLayout.WEST);
+        creditPanel.add(credit, BorderLayout.CENTER);
+
+
 
         /* BorderLayout West Area */
         /* Select Herb Section Panel */
