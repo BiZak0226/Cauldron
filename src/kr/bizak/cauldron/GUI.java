@@ -24,7 +24,7 @@ public class GUI extends JFrame {
 
         JTextField creditView = new JTextField();
         creditView.setEditable(false);
-        creditView.setText("1,000,000" + "$");
+        creditView.setText("1,000,000" + " $");
 
         creditPanel.add(creditLabel, BorderLayout.WEST);
         creditPanel.add(creditView, BorderLayout.CENTER);
