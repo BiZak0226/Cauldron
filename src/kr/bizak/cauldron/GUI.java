@@ -33,6 +33,7 @@ public class GUI extends JFrame {
 
         /* BorderLayout West Area */
         /* Select Herb Section Panel */
+        JScrollPane herbScrollPanel = new JScrollPane();
         JPanel herbPanel = new JPanel();
 
         /* Search File List */
@@ -42,20 +43,14 @@ public class GUI extends JFrame {
         dir = new File(path);
         file = dir.listFiles();
 
-        GridLayout gridLayout = new GridLayout((file.length/4)+1,4);
+        GridLayout gridLayout;
+        if (file.length%4 == 0){
+            gridLayout = new GridLayout((file.length/4),4);
+        }else{
+            gridLayout = new GridLayout((file.length/4)+1,4);
+        }
         herbPanel.setLayout(gridLayout);
         int grid = gridLayout.getColumns()*gridLayout.getRows();
-//        System.out.println("GridLayout :: " + gridLayout.getRows() +", "+ gridLayout.getColumns());
-
-//        try{
-//            dir = new File(path);
-//            file = dir.listFiles();
-//            count=file.length;
-//        }catch (Exception ex){
-//            ex.printStackTrace();
-//        }
-
-
 
         /* Create Compoments */
         JPanel[] herbCompoments = new JPanel[grid];
@@ -63,11 +58,13 @@ public class GUI extends JFrame {
         JPanel[] selection = new JPanel[grid];
         JButton[] addButtons = new JButton[grid];
         JButton[] cancelButtons = new JButton[grid];
-        ImageIcon herbIcon;
-        ImageIcon add = new ImageIcon("src/image/icon/add.png");
-        ImageIcon cancel = new ImageIcon("src/image/icon/cancel.png");
+        JTextField[] herbNameField = new JTextField[grid];
 
-//        for (int i = 0; i < count; i++) {
+        ImageIcon herbIcon;
+        ImageIcon add = new ImageIcon("src/image/icon/system/add.png");
+        ImageIcon cancel = new ImageIcon("src/image/icon/system/cancel.png");
+
+        /* Set Compoments*/
         for (int i = 0; i < grid; i++) {
             int num=i;
             if (i >= file.length){
@@ -87,27 +84,48 @@ public class GUI extends JFrame {
             herb[i].setLayout(new BorderLayout());
             herbIcon = new ImageIcon(String.valueOf(file[num]));
             herb[i].setIcon(herbIcon);
+//            herb[i].setSize(100,100);
+            herb[i].setPreferredSize(new Dimension(101,102));
 
-            herb[i].setBorder(new TitledBorder(new LineBorder(Color.CYAN, 3)));
+            /* Herb DisplayName */
+            herbNameField[i] = new JTextField();
+            herbNameField[i].setEditable(false);
+            herbNameField[i].setText(herbName);
+            herbNameField[i].setHorizontalAlignment(JTextField.CENTER);
+            herbNameField[i].setPreferredSize(new Dimension(100, 15));
+
             /* Select Button */
             selection[i] = new JPanel();
-            selection[i].setLayout(new GridLayout(2,1));
+            selection[i].setLayout(new GridLayout(1,2));
 
-            addButtons[i] = new JButton(herbName + " add");
-            cancelButtons[i] = new JButton(herbName + " cancle");
+            addButtons[i] = new JButton(add);
+            addButtons[i].setBorderPainted(false);
+            addButtons[i].setPreferredSize(new Dimension(30,30));
+            addButtons[i].setBackground(Color.BLACK);
+
+            cancelButtons[i] = new JButton(cancel);
+            cancelButtons[i].setBorderPainted(false);
+            cancelButtons[i].setPreferredSize(new Dimension(30,30));
+            cancelButtons[i].setBackground(Color.BLACK);
+
             selection[i].add(addButtons[i]);
             selection[i].add(cancelButtons[i]);
-
-            selection[i].setBorder(new TitledBorder(new LineBorder(Color.BLUE, 3)));
+            selection[i].setPreferredSize(new Dimension(100, 30));
 
             /* Add Panel */
             herbCompoments[i] = new JPanel();
             herbCompoments[i].setLayout(new BorderLayout());
 
-            herbCompoments[i].add(herb[i], BorderLayout.CENTER);
+            herbCompoments[i].add(herb[i], BorderLayout.NORTH);
+            herbCompoments[i].add(herbNameField[i], BorderLayout.CENTER);
             herbCompoments[i].add(selection[i], BorderLayout.SOUTH);
             herbPanel.add(herbCompoments[i]);
         }
+        herbScrollPanel.setPreferredSize(new Dimension(herbPanel.getPreferredSize().width+18, 500));
+        herbScrollPanel.setViewportView(herbPanel);
+        herbScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+
 
         /* BorderLayout Center Area */
         /* Create Cauldron Section Panel */
@@ -124,6 +142,7 @@ public class GUI extends JFrame {
         cauldronPanel.add(calB, BorderLayout.SOUTH);
 
 
+
         /* BorderLayout South Area */
         JPanel southPanel = new JPanel();
         southPanel.setLayout(new GridLayout());
@@ -131,18 +150,11 @@ public class GUI extends JFrame {
         resultArea.setEditable(false);
         resultArea.setSize(new Window(this).getWidth(), 100);
 
-        resultArea.setBorder(new TitledBorder(new LineBorder(Color.BLACK, 3)));
-
         southPanel.add(resultArea);
 
         /* Combination */
-        herbPanel.setBorder(new TitledBorder(new LineBorder(Color.YELLOW, 3)));
-        cauldronPanel.setBorder(new TitledBorder(new LineBorder(Color.YELLOW, 3)));
-        southPanel.setBorder(new TitledBorder(new LineBorder(Color.YELLOW, 3)));
-        creditPanel.setBorder(new TitledBorder(new LineBorder(Color.YELLOW, 3)));
-
         this.add(creditPanel, BorderLayout.NORTH);
-        this.add(herbPanel, BorderLayout.WEST);
+        this.add(herbScrollPanel, BorderLayout.WEST);
         this.add(cauldronPanel, BorderLayout.CENTER);
         this.add(southPanel, BorderLayout.SOUTH);
 
