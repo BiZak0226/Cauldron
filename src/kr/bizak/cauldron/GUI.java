@@ -31,7 +31,7 @@ public class GUI extends JFrame {
 
 
 
-        /* BorderLayout West Area */
+        /* ========#========# BorderLayout West Area #========#======== */
         /* Select Herb Section Panel */
         JScrollPane herbScrollPanel = new JScrollPane();
         JPanel herbPanel = new JPanel();
@@ -44,8 +44,8 @@ public class GUI extends JFrame {
         file = dir.listFiles();
 
         GridLayout gridLayout;
-        if (file.length%4 == 0){
-            gridLayout = new GridLayout((file.length/4),4);
+        if (file.length/4 < 3){
+            gridLayout = new GridLayout(3,4);
         }else{
             gridLayout = new GridLayout((file.length/4)+1,4);
         }
@@ -84,7 +84,6 @@ public class GUI extends JFrame {
             herb[i].setLayout(new BorderLayout());
             herbIcon = new ImageIcon(String.valueOf(file[num]));
             herb[i].setIcon(herbIcon);
-//            herb[i].setSize(100,100);
             herb[i].setPreferredSize(new Dimension(101,102));
 
             /* Herb DisplayName */
@@ -92,7 +91,7 @@ public class GUI extends JFrame {
             herbNameField[i].setEditable(false);
             herbNameField[i].setText(herbName);
             herbNameField[i].setHorizontalAlignment(JTextField.CENTER);
-            herbNameField[i].setPreferredSize(new Dimension(100, 15));
+            herbNameField[i].setPreferredSize(new Dimension(100, 20));
 
             /* Select Button */
             selection[i] = new JPanel();
@@ -116,18 +115,18 @@ public class GUI extends JFrame {
             herbCompoments[i] = new JPanel();
             herbCompoments[i].setLayout(new BorderLayout());
 
-            herbCompoments[i].add(herb[i], BorderLayout.NORTH);
-            herbCompoments[i].add(herbNameField[i], BorderLayout.CENTER);
+            herbCompoments[i].add(herb[i], BorderLayout.CENTER);
+            herbCompoments[i].add(herbNameField[i], BorderLayout.NORTH);
             herbCompoments[i].add(selection[i], BorderLayout.SOUTH);
             herbPanel.add(herbCompoments[i]);
         }
-        herbScrollPanel.setPreferredSize(new Dimension(herbPanel.getPreferredSize().width+18, 500));
+        herbScrollPanel.setPreferredSize(new Dimension(herbPanel.getPreferredSize().width+18, 350));
         herbScrollPanel.setViewportView(herbPanel);
         herbScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 
 
-        /* BorderLayout Center Area */
+        /* ========#========# BorderLayout Center Area #========#======== */
         /* Create Cauldron Section Panel */
         JPanel cauldronPanel = new JPanel();
         cauldronPanel.setLayout(new BorderLayout());
@@ -136,14 +135,14 @@ public class GUI extends JFrame {
         cauldronLabel.setIcon(calldronImage);
         JButton calB = new JButton();
         calB.setBorderPainted(false);
-        calB.setPreferredSize(new Dimension(300, 100));
+        calB.setPreferredSize(new Dimension(300, 50));
 
-        cauldronPanel.add(cauldronLabel, BorderLayout.CENTER);
+        cauldronPanel.add(cauldronLabel, BorderLayout.NORTH);
         cauldronPanel.add(calB, BorderLayout.SOUTH);
 
 
 
-        /* BorderLayout South Area */
+        /* ========#========# BorderLayout South Area #========#======== */
         JPanel southPanel = new JPanel();
         southPanel.setLayout(new GridLayout());
         JTextArea resultArea = new JTextArea(10, 30);
@@ -152,11 +151,15 @@ public class GUI extends JFrame {
 
         southPanel.add(resultArea);
 
+
+
         /* Combination */
         this.add(creditPanel, BorderLayout.NORTH);
         this.add(herbScrollPanel, BorderLayout.WEST);
         this.add(cauldronPanel, BorderLayout.CENTER);
         this.add(southPanel, BorderLayout.SOUTH);
+
+
 
         /* Set Frame */
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
