@@ -1,12 +1,26 @@
 package kr.bizak.cauldron;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.HashMap;
 
-public class GUI extends JFrame {
+public class GUI extends JFrame{
+    Herb herb_1 = new Herb("red_herb", new HashMap<String, Integer>(){{
+        put("healing", 6);
+    }});
+    Herb herb_3 = new Herb("green_herb", new HashMap<String, Integer>(){{
+        put("healing", 14);
+    }});
+    Herb herb_4 = new Herb("red_herb", new HashMap<String, Integer>(){{
+        put("healing", 21);
+        put("poison", 17);
+    }});
+
+
+
     public GUI() {
         /* Create Container */
 
@@ -54,10 +68,7 @@ public class GUI extends JFrame {
 
         /* Create Compoments */
         JPanel[] herbCompoments = new JPanel[grid];
-        JLabel[] herb = new JLabel[grid];
-        JPanel[] selection = new JPanel[grid];
-        JButton[] addButtons = new JButton[grid];
-        JButton[] cancelButtons = new JButton[grid];
+        JButton[] herbButtons = new JButton[grid];
         JTextField[] herbNameField = new JTextField[grid];
 
         ImageIcon herbIcon;
@@ -79,13 +90,6 @@ public class GUI extends JFrame {
 
             }
 
-            /* Herb Icon */
-            herb[i] = new JLabel();
-            herb[i].setLayout(new BorderLayout());
-            herbIcon = new ImageIcon(String.valueOf(file[num]));
-            herb[i].setIcon(herbIcon);
-            herb[i].setPreferredSize(new Dimension(101,102));
-
             /* Herb DisplayName */
             herbNameField[i] = new JTextField();
             herbNameField[i].setEditable(false);
@@ -93,31 +97,18 @@ public class GUI extends JFrame {
             herbNameField[i].setHorizontalAlignment(JTextField.CENTER);
             herbNameField[i].setPreferredSize(new Dimension(100, 20));
 
-            /* Select Button */
-            selection[i] = new JPanel();
-            selection[i].setLayout(new GridLayout(1,2));
-
-            addButtons[i] = new JButton(add);
-            addButtons[i].setBorderPainted(false);
-            addButtons[i].setPreferredSize(new Dimension(30,30));
-            addButtons[i].setBackground(Color.BLACK);
-
-            cancelButtons[i] = new JButton(cancel);
-            cancelButtons[i].setBorderPainted(false);
-            cancelButtons[i].setPreferredSize(new Dimension(30,30));
-            cancelButtons[i].setBackground(Color.BLACK);
-
-            selection[i].add(addButtons[i]);
-            selection[i].add(cancelButtons[i]);
-            selection[i].setPreferredSize(new Dimension(100, 30));
+            /* Herb Icon */
+            herbIcon = new ImageIcon(String.valueOf(file[num]));
+            herbButtons[i] = new JButton(herbIcon);
+            herbButtons[i].setPreferredSize(new Dimension(101,102));
+            herbButtons[i].addActionListener(new Event());
 
             /* Add Panel */
             herbCompoments[i] = new JPanel();
             herbCompoments[i].setLayout(new BorderLayout());
 
-            herbCompoments[i].add(herb[i], BorderLayout.CENTER);
+            herbCompoments[i].add(herbButtons[i], BorderLayout.CENTER);
             herbCompoments[i].add(herbNameField[i], BorderLayout.NORTH);
-            herbCompoments[i].add(selection[i], BorderLayout.SOUTH);
             herbPanel.add(herbCompoments[i]);
         }
         herbScrollPanel.setPreferredSize(new Dimension(herbPanel.getPreferredSize().width+18, 350));
@@ -127,18 +118,24 @@ public class GUI extends JFrame {
 
 
         /* ========#========# BorderLayout Center Area #========#======== */
+
+
+
+
+
         /* Create Cauldron Section Panel */
         JPanel cauldronPanel = new JPanel();
         cauldronPanel.setLayout(new BorderLayout());
         ImageIcon calldronImage = new ImageIcon("src/image/icon/system/cauldron.png");
         JLabel cauldronLabel = new JLabel();
         cauldronLabel.setIcon(calldronImage);
-        JButton calB = new JButton();
-        calB.setBorderPainted(false);
-        calB.setPreferredSize(new Dimension(300, 50));
+        JButton caulB = new JButton("cauldron");
+        caulB.setBorderPainted(false);
+        caulB.setPreferredSize(new Dimension(300, 50));
+        caulB.addActionListener(new Event());
 
         cauldronPanel.add(cauldronLabel, BorderLayout.NORTH);
-        cauldronPanel.add(calB, BorderLayout.SOUTH);
+        cauldronPanel.add(caulB, BorderLayout.SOUTH);
 
 
 
@@ -167,4 +164,5 @@ public class GUI extends JFrame {
         this.pack();
         setVisible(true);
     }
+
 }

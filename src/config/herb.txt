@@ -7,7 +7,7 @@ Herb:
   yellow_herb:
     name: yellow_herb
     essence:
-      healing: 9
+      healing: 3
       fire: 6
     icon: herb_2.png
   green_hub:
