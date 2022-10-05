@@ -25,7 +25,7 @@ Herb:
     name: purple_leaf
     essence:
       healing: 21
-      poison: 17
+      poison: 8
     icon: herb_4.png
   ember_leaf:
     name: ember_leaf

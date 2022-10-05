@@ -5,22 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.HashMap;
 
-public class GUI extends JFrame{
-    Herb herb_1 = new Herb("red_herb", new HashMap<String, Integer>(){{
-        put("healing", 6);
-    }});
-    Herb herb_3 = new Herb("green_herb", new HashMap<String, Integer>(){{
-        put("healing", 14);
-    }});
-    Herb herb_4 = new Herb("red_herb", new HashMap<String, Integer>(){{
-        put("healing", 21);
-        put("poison", 17);
-    }});
+public class GUI extends JFrame {
+    Event actionEvent = new Event();
 
-
-
+    JTextArea resultArea;
     public GUI() {
         /* Create Container */
 
@@ -58,10 +47,10 @@ public class GUI extends JFrame{
         file = dir.listFiles();
 
         GridLayout gridLayout;
-        if (file.length/4 < 3){
-            gridLayout = new GridLayout(3,4);
+        if (file.length/3 < 2){
+            gridLayout = new GridLayout(3,3);
         }else{
-            gridLayout = new GridLayout((file.length/4)+1,4);
+            gridLayout = new GridLayout((file.length/3)+1,3);
         }
         herbPanel.setLayout(gridLayout);
         int grid = gridLayout.getColumns()*gridLayout.getRows();
@@ -101,7 +90,7 @@ public class GUI extends JFrame{
             herbIcon = new ImageIcon(String.valueOf(file[num]));
             herbButtons[i] = new JButton(herbIcon);
             herbButtons[i].setPreferredSize(new Dimension(101,102));
-            herbButtons[i].addActionListener(new Event());
+            herbButtons[i].addActionListener(actionEvent);
 
             /* Add Panel */
             herbCompoments[i] = new JPanel();
@@ -132,7 +121,12 @@ public class GUI extends JFrame{
         JButton caulB = new JButton("cauldron");
         caulB.setBorderPainted(false);
         caulB.setPreferredSize(new Dimension(300, 50));
-        caulB.addActionListener(new Event());
+        caulB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                resultArea.setText(actionEvent.getEssence().toString());
+            }
+        });
 
         cauldronPanel.add(cauldronLabel, BorderLayout.NORTH);
         cauldronPanel.add(caulB, BorderLayout.SOUTH);
@@ -142,7 +136,7 @@ public class GUI extends JFrame{
         /* ========#========# BorderLayout South Area #========#======== */
         JPanel southPanel = new JPanel();
         southPanel.setLayout(new GridLayout());
-        JTextArea resultArea = new JTextArea(10, 30);
+        resultArea = new JTextArea(10, 30);
         resultArea.setEditable(false);
         resultArea.setSize(new Window(this).getWidth(), 100);
 
