@@ -4,23 +4,27 @@ Herb:
     essence:
       healing: 6
     icon: herb_1.png
+
   yellow_herb:
     name: yellow_herb
     essence:
       healing: 3
       fire: 6
     icon: herb_2.png
+
   green_hub:
     name: green_hub
     essence:
       healing: 14
     icon: herb_3.png
+
   skyberry:
     name: skyberry
     essence:
       healing: 7
       poison: -13
     icon: herb_7.png
+
   purple_leaf:
     name: purple_leaf
     essence:

@@ -6,26 +6,44 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class GUI extends JFrame {
+public class GUI extends JFrame implements ActionListener{
     Event actionEvent = new Event();
+    Recipe actionRecipe = new Recipe();
 
+    /* ========#========# BorderLayout North Area #========#======== */
+    JTextField creditView;
+    JLabel creditLabel;
+    JPanel creditPanel;
+
+    /* ========#========# BorderLayout West Area #========#======== */
+    JScrollPane materialScrollPanel;
+    JPanel materialPanel;
+
+    /* ========#========# BorderLayout Center Area #========#======== */
+    JPanel cauldronPanel;
+    ImageIcon calldronImage;
+    JLabel cauldronLabel;
+    JButton caulB;
+
+    /* ========#========# BorderLayout South Area #========#======== */
+    JPanel southPanel;
     JTextArea resultArea;
+
     public GUI() {
         /* Create Container */
-
         setLayout(new BorderLayout());
 
+        /* ========#========# BorderLayout North Area #========#======== */
 
-        /* BorderLayout North Area */
         /* Credit Panel */
-        JPanel creditPanel = new JPanel();
+        creditPanel= new JPanel();
         creditPanel.setLayout(new BorderLayout());
 
-        JLabel creditLabel = new JLabel();
+        creditLabel= new JLabel();
         ImageIcon creditIcon = new ImageIcon("src/image/icon/system/credits.png");
         creditLabel.setIcon(creditIcon);
 
-        JTextField creditView = new JTextField();
+        creditView = new JTextField();
         creditView.setEditable(false);
         creditView.setText("1,000,000" + " $");
 
@@ -35,13 +53,14 @@ public class GUI extends JFrame {
 
 
         /* ========#========# BorderLayout West Area #========#======== */
-        /* Select Herb Section Panel */
-        JScrollPane herbScrollPanel = new JScrollPane();
-        JPanel herbPanel = new JPanel();
+
+        /* Select material Section Panel */
+        materialScrollPanel= new JScrollPane();
+        materialPanel= new JPanel();
 
         /* Search File List */
         File dir;
-        String path = "src/image/icon/herb/";
+        String path = "src/image/icon/material/";
         File[] file;
         dir = new File(path);
         file = dir.listFiles();
@@ -52,81 +71,73 @@ public class GUI extends JFrame {
         }else{
             gridLayout = new GridLayout((file.length/3)+1,3);
         }
-        herbPanel.setLayout(gridLayout);
+        materialPanel.setLayout(gridLayout);
         int grid = gridLayout.getColumns()*gridLayout.getRows();
 
         /* Create Compoments */
-        JPanel[] herbCompoments = new JPanel[grid];
-        JButton[] herbButtons = new JButton[grid];
-        JTextField[] herbNameField = new JTextField[grid];
+        JPanel[] materialCompoments = new JPanel[grid];
+        JButton[] materialButtons = new JButton[grid];
+        JTextField[] materialNameField = new JTextField[grid];
 
-        ImageIcon herbIcon;
-        ImageIcon add = new ImageIcon("src/image/icon/system/add.png");
-        ImageIcon cancel = new ImageIcon("src/image/icon/system/cancel.png");
+        ImageIcon materialIcon;
 
         /* Set Compoments*/
         for (int i = 0; i < grid; i++) {
             int num=i;
-            if (i >= file.length){
-                num= file.length-1;
+            /* Get material Name */
+            String materialName;
+            if (i < file.length){
+                materialName = String.valueOf(file[num]);
+                materialName = materialName.substring(path.length());
+                materialName = materialName.substring(0,materialName.length()-4);
+            }else{ materialName = ""; }
+
+            /* material DisplayName */
+            materialNameField[i] = new JTextField();
+            materialNameField[i].setEditable(false);
+            materialNameField[i].setText(materialName);
+            materialNameField[i].setHorizontalAlignment(JTextField.CENTER);
+            materialNameField[i].setPreferredSize(new Dimension(100, 20));
+
+            /* material Icon */
+            if (i < file.length){
+                materialIcon = new ImageIcon(String.valueOf(file[num]));
+            }else{
+                materialIcon = new ImageIcon("src/image/icon/system/herb_empty.png");
             }
-            /* Get Herb Name */
-            String herbName = String.valueOf(file[num]);
-            herbName = herbName.substring(path.length());
-            herbName = herbName.substring(0,herbName.length()-4);
-
-            if(herbName.equals("herb_empty")){
-
-            }
-
-            /* Herb DisplayName */
-            herbNameField[i] = new JTextField();
-            herbNameField[i].setEditable(false);
-            herbNameField[i].setText(herbName);
-            herbNameField[i].setHorizontalAlignment(JTextField.CENTER);
-            herbNameField[i].setPreferredSize(new Dimension(100, 20));
-
-            /* Herb Icon */
-            herbIcon = new ImageIcon(String.valueOf(file[num]));
-            herbButtons[i] = new JButton(herbIcon);
-            herbButtons[i].setPreferredSize(new Dimension(101,102));
-            herbButtons[i].addActionListener(actionEvent);
+            materialButtons[i] = new JButton(materialIcon);
+            materialButtons[i].setBackground(Color.WHITE);
+            materialButtons[i].setBorderPainted(false);
+            materialButtons[i].setPreferredSize(new Dimension(101,102));
+            materialButtons[i].addActionListener(actionEvent);
 
             /* Add Panel */
-            herbCompoments[i] = new JPanel();
-            herbCompoments[i].setLayout(new BorderLayout());
+            materialCompoments[i] = new JPanel();
+            materialCompoments[i].setLayout(new BorderLayout());
 
-            herbCompoments[i].add(herbButtons[i], BorderLayout.CENTER);
-            herbCompoments[i].add(herbNameField[i], BorderLayout.NORTH);
-            herbPanel.add(herbCompoments[i]);
+            materialCompoments[i].add(materialButtons[i], BorderLayout.CENTER);
+            materialCompoments[i].add(materialNameField[i], BorderLayout.NORTH);
+            materialPanel.add(materialCompoments[i]);
         }
-        herbScrollPanel.setPreferredSize(new Dimension(herbPanel.getPreferredSize().width+18, 350));
-        herbScrollPanel.setViewportView(herbPanel);
-        herbScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        materialScrollPanel.setPreferredSize(new Dimension(materialPanel.getPreferredSize().width+18, 350));
+        materialScrollPanel.setViewportView(materialPanel);
+        materialScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 
 
         /* ========#========# BorderLayout Center Area #========#======== */
 
-
-
-
-
         /* Create Cauldron Section Panel */
-        JPanel cauldronPanel = new JPanel();
+        cauldronPanel = new JPanel();
         cauldronPanel.setLayout(new BorderLayout());
-        ImageIcon calldronImage = new ImageIcon("src/image/icon/system/cauldron.png");
-        JLabel cauldronLabel = new JLabel();
+        calldronImage = new ImageIcon("src/image/icon/system/cauldron.png");
+        cauldronLabel = new JLabel();
         cauldronLabel.setIcon(calldronImage);
-        JButton caulB = new JButton("cauldron");
+        caulB = new JButton("cauldron");
         caulB.setBorderPainted(false);
         caulB.setPreferredSize(new Dimension(300, 50));
-        caulB.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                resultArea.setText(actionEvent.getEssence().toString());
-            }
-        });
+        caulB.addActionListener(this);
 
         cauldronPanel.add(cauldronLabel, BorderLayout.NORTH);
         cauldronPanel.add(caulB, BorderLayout.SOUTH);
@@ -134,7 +145,9 @@ public class GUI extends JFrame {
 
 
         /* ========#========# BorderLayout South Area #========#======== */
-        JPanel southPanel = new JPanel();
+
+        /* Panel */
+        southPanel = new JPanel();
         southPanel.setLayout(new GridLayout());
         resultArea = new JTextArea(10, 30);
         resultArea.setEditable(false);
@@ -146,7 +159,7 @@ public class GUI extends JFrame {
 
         /* Combination */
         this.add(creditPanel, BorderLayout.NORTH);
-        this.add(herbScrollPanel, BorderLayout.WEST);
+        this.add(materialScrollPanel, BorderLayout.WEST);
         this.add(cauldronPanel, BorderLayout.CENTER);
         this.add(southPanel, BorderLayout.SOUTH);
 
@@ -158,5 +171,17 @@ public class GUI extends JFrame {
         this.pack();
         setVisible(true);
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        actionRecipe.setEssence(actionEvent.getEssence());
+        actionRecipe.Recipe();
+        resultArea.setText(resultArea.getText() + actionEvent.getEssence().toString() + "\n");
+        actionEvent.clearEssence();
+    }
+
+
+
+
 
 }

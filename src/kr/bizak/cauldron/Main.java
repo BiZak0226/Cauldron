@@ -1,9 +1,14 @@
 package kr.bizak.cauldron;
 
-public class Main {
-    public static void main(String[] args) {
-        /* Call GUI */
-        new GUI();
 
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        new MaterialDAO();
+
+        /* Call GUI */
+//        new GUI();
     }
 }
