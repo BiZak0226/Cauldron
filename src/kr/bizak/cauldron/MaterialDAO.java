@@ -44,7 +44,7 @@ public class MaterialDAO {
         JSONObject obj;
         JSONObject dummyObject, essenceObject;
         try{
-            reader = new FileReader("src/config/json/material/plant.json");
+            reader = new FileReader("src/config/material/plant.json");
             obj = (JSONObject)new JSONParser().parse(reader);
             Material[] material = new Material[obj.size()];
 

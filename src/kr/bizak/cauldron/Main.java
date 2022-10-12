@@ -9,6 +9,6 @@ public class Main {
         new MaterialDAO();
 
         /* Call GUI */
-//        new GUI();
+        new GUI();
     }
 }

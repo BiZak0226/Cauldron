@@ -1,0 +1,63 @@
+{
+  "plant_01": {
+    "name": "red herb",
+    "icon": "plant_01.png",
+    "type": "plant",
+    "essence": {
+      "healing": 6
+    }
+  },
+  "plant_02": {
+    "name": "ember herb",
+    "icon": "plant_02.png",
+    "type": "plant",
+    "essence": {
+      "healing": 3,
+      "fire": 9
+    }
+  },
+  "plant_03": {
+    "name": "green herb",
+    "icon": "plant_03.png",
+    "type": "plant",
+    "essence": {
+      "healing": 13
+    }
+  },
+  "plant_04": {
+    "name": "purple herb",
+    "icon": "plant_04.png",
+    "type": "plant",
+    "essence": {
+      "healing": 6,
+      "poison": 17
+    }
+  },
+  "plant_05": {
+    "name": "sinder herb",
+    "icon": "plant_05.png",
+    "type": "plant",
+    "essence": {
+      "healing": 7,
+      "fire": 19
+    }
+  },
+  "plant_06": {
+    "name": "maple herb",
+    "icon": "plant_06.png",
+    "type": "plant",
+    "essence": {
+      "healing": 2,
+      "sugar": 7
+    }
+  },
+  "plant_07": {
+    "name": "skyberry",
+    "icon": "plant_07.png",
+    "type": "plant",
+    "essence": {
+      "healing": 11,
+      "poison": -21
+    }
+  }
+}

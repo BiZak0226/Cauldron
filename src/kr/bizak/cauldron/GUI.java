@@ -83,11 +83,10 @@ public class GUI extends JFrame implements ActionListener{
 
         /* Set Compoments*/
         for (int i = 0; i < grid; i++) {
-            int num=i;
             /* Get material Name */
             String materialName;
             if (i < file.length){
-                materialName = String.valueOf(file[num]);
+                materialName = String.valueOf(file[i]);
                 materialName = materialName.substring(path.length());
                 materialName = materialName.substring(0,materialName.length()-4);
             }else{ materialName = ""; }
@@ -101,7 +100,7 @@ public class GUI extends JFrame implements ActionListener{
 
             /* material Icon */
             if (i < file.length){
-                materialIcon = new ImageIcon(String.valueOf(file[num]));
+                materialIcon = new ImageIcon(String.valueOf(file[i]));
             }else{
                 materialIcon = new ImageIcon("src/image/icon/system/herb_empty.png");
             }
