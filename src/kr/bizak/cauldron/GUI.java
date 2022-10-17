@@ -29,6 +29,8 @@ public class GUI extends JFrame implements ActionListener{
     JPanel southPanel;
     JTextArea resultArea;
 
+//    MaterialDAO materalData = new MaterialDAO();
+
     public GUI() {
         /* Create Container */
         setLayout(new BorderLayout());

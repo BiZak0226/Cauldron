@@ -21,19 +21,19 @@ public class Event /*extends GUI*/ implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        /* Select Herb Button */
+        /* Select plant Button */
         JButton button = (JButton) e.getSource();
 
-            String herbname = button.getIcon().toString();
-            herbname = herbname.substring(24, herbname.length()-4);
+            String plantname = button.getIcon().toString();
+            plantname = plantname.substring(24, plantname.length()-4);
 
-            if (herbname.equals("herb_1")){
+            if (plantname.equals("plant_1")){
                 if (essence.containsKey("healing")){
                     essence.put("healing", essence.get("healing")+6);
                 }else{
                     essence.put("healing", 6);
                 }
-            }else if (herbname.equals("herb_2")){
+            }else if (plantname.equals("plant_2")){
                 if (essence.containsKey("healing")){
                     essence.put("healing", essence.get("healing")+3);
                 }else{
@@ -44,13 +44,13 @@ public class Event /*extends GUI*/ implements ActionListener {
                 }else{
                     essence.put("fire", 6);
                 }
-            }else if (herbname.equals("herb_3")){
+            }else if (plantname.equals("plant_3")){
                 if (essence.containsKey("healing")){
                     essence.put("healing", essence.get("healing")+14);
                 }else{
                     essence.put("healing", 14);
                 }
-            }else if(herbname.equals("herb_4")) {
+            }else if(plantname.equals("plant_4")) {
                 if (essence.containsKey("healing")) {
                     essence.put("healing", essence.get("healing") + 21);
                 } else {
@@ -62,7 +62,7 @@ public class Event /*extends GUI*/ implements ActionListener {
                 } else {
                     essence.put("poison", 8);
                 }
-            }else if (herbname.equals("herb_5")){
+            }else if (plantname.equals("plant_5")){
                 if (essence.containsKey("healing")){
                     essence.put("healing", essence.get("healing")+4);
                 }else{
@@ -73,7 +73,7 @@ public class Event /*extends GUI*/ implements ActionListener {
                 }else{
                     essence.put("fire", 15);
                 }
-            }else if (herbname.equals("herb_6")){
+            }else if (plantname.equals("plant_6")){
                 if (essence.containsKey("healing")){
                     essence.put("healing", essence.get("healing")+2);
                 }else{
@@ -84,7 +84,7 @@ public class Event /*extends GUI*/ implements ActionListener {
                 }else{
                     essence.put("sugar", 14);
                 }
-            }else if (herbname.equals("herb_7")){
+            }else if (plantname.equals("plant_7")){
                 if (essence.containsKey("healing")){
                     essence.put("healing", essence.get("healing")+7);
                 }else{
@@ -96,8 +96,8 @@ public class Event /*extends GUI*/ implements ActionListener {
                     essence.put("poison", -13);
                 }
             }
-            if (!herbname.contains("empty")){
-                System.out.println("[Event]:: input "+ herbname + " size : " + essence.size() +" / Essence -> " + essence);
+            if (!plantname.contains("empty")){
+                System.out.println("[Event]:: input "+ plantname + " size : " + essence.size() +" / Essence -> " + essence);
             }
 
     }

@@ -1,14 +1,11 @@
 package kr.bizak.cauldron;
 
-
-
 public class Main {
-
     public static void main(String[] args) {
-
-        new MaterialDAO();
+        /* Gey JSON Data */
+        MaterialDAO dao = new MaterialDAO();
 
         /* Call GUI */
-        new GUI();
+//        new GUI();
     }
 }
