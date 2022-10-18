@@ -11,3 +11,5 @@ C
 src/config/memo.txt,9\4\9461bafad84bafa01911994e469c97dc330e3093
 S
 #src/kr/bizak/cauldron/Material.java,3\6\369c38cae2d300ec3d1cc8cbffdd5a10efe1a0ff
+F
+src/config/essence.txt,2\d\2d9e276e423498f6daca5d69e870401367992cb9
