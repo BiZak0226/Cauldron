@@ -1,7 +1,7 @@
 {
   "mineral_1": {
     "name": "crystal",
-    "icon": "crystalize.png",
+    "icon": "minerals_5.png",
     "type": "minerals",
     "essence": {
       "void": 0
@@ -9,8 +9,16 @@
   },
   "mineral_2": {
     "name": "empty_minerals",
-    "icon": "minerals.png",
-    "type": "plant",
+    "icon": "minerals_0.png",
+    "type": "minerals",
+    "essence": {
+      "void": 0
+    }
+  },
+  "mineral_3": {
+    "name": "minerals",
+    "icon": "minerals_1.png",
+    "type": "minerals",
     "essence": {
       "void": 0
     }

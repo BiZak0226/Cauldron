@@ -1,10 +1,15 @@
 package kr.bizak.cauldron;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileReader;
+import java.io.Reader;
 
 public class GUI extends JFrame implements ActionListener{
     Event actionEvent = new Event();
@@ -62,63 +67,16 @@ public class GUI extends JFrame implements ActionListener{
 
         /* Search File List */
         File dir;
-        String path = "src/image/icon/material/";
+        String path = "src/config/material/";
         File[] file;
         dir = new File(path);
         file = dir.listFiles();
 
-        GridLayout gridLayout;
-        if (file.length/3 < 2){
-            gridLayout = new GridLayout(3,3);
-        }else{
-            gridLayout = new GridLayout((file.length/3)+1,3);
-        }
-        materialPanel.setLayout(gridLayout);
-        int grid = gridLayout.getColumns()*gridLayout.getRows();
+        materialPanel.setLayout(new BoxLayout(materialPanel, BoxLayout.Y_AXIS));
+//        materialPanel.setLayout(new GridLayout(file.length, 1));
 
-        /* Create Compoments */
-        JPanel[] materialCompoments = new JPanel[grid];
-        JButton[] materialButtons = new JButton[grid];
-        JTextField[] materialNameField = new JTextField[grid];
-
-        ImageIcon materialIcon;
-
-        /* Set Compoments*/
-        for (int i = 0; i < grid; i++) {
-            /* Get material Name */
-            String materialName;
-            if (i < file.length){
-                materialName = String.valueOf(file[i]);
-                materialName = materialName.substring(path.length());
-                materialName = materialName.substring(0,materialName.length()-4);
-            }else{ materialName = ""; }
-
-            /* material DisplayName */
-            materialNameField[i] = new JTextField();
-            materialNameField[i].setEditable(false);
-            materialNameField[i].setText(materialName);
-            materialNameField[i].setHorizontalAlignment(JTextField.CENTER);
-            materialNameField[i].setPreferredSize(new Dimension(100, 20));
-
-            /* material Icon */
-            if (i < file.length){
-                materialIcon = new ImageIcon(String.valueOf(file[i]));
-            }else{
-                materialIcon = new ImageIcon("src/image/icon/system/herb_empty.png");
-            }
-            materialButtons[i] = new JButton(materialIcon);
-            materialButtons[i].setBackground(Color.WHITE);
-            materialButtons[i].setBorderPainted(false);
-            materialButtons[i].setPreferredSize(new Dimension(101,102));
-            materialButtons[i].addActionListener(actionEvent);
-
-            /* Add Panel */
-            materialCompoments[i] = new JPanel();
-            materialCompoments[i].setLayout(new BorderLayout());
-
-            materialCompoments[i].add(materialButtons[i], BorderLayout.CENTER);
-            materialCompoments[i].add(materialNameField[i], BorderLayout.NORTH);
-            materialPanel.add(materialCompoments[i]);
+        for (int i = 0; i < file.length; i++) {
+            materialPanel.add(createCompoment(file[i]));
         }
 
         materialScrollPanel.setPreferredSize(new Dimension(materialPanel.getPreferredSize().width+18, 350));
@@ -171,6 +129,77 @@ public class GUI extends JFrame implements ActionListener{
         setTitle("Cauldron");
         this.pack();
         setVisible(true);
+    }
+
+    private Component createCompoment(File file) {
+        JPanel material_Panel = new JPanel();
+
+        material_Panel.setLayout(new BorderLayout());
+        JPanel materiallistPanel = new JPanel();
+        GridLayout materialGrid;
+
+        Reader reader;
+        JSONObject jsonObject = null;
+        JSONObject materialObject;
+
+        /* Load JSON */
+        try {
+            reader = new FileReader(file);
+            jsonObject = (JSONObject)new JSONParser().parse(reader);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /* Get Key */
+        String[] filenamearr = String.valueOf(file).split("\\\\");
+        String filename = filenamearr[filenamearr.length-1];
+        filename = filename.substring(0,filename.length()-5);
+
+        materialGrid = new GridLayout(jsonObject.size()/3+1, 3);
+        materiallistPanel.setLayout(materialGrid);
+
+        /* Create Compoment */
+        for (int i = 0; i < jsonObject.size(); i++) {
+            materialObject = (JSONObject) jsonObject.get(filename+"_"+(i+1));
+
+            System.out.println(materialObject.get("name"));
+
+            /* material DisplayName */
+            JTextField materialNameField = new JTextField();
+            materialNameField.setEditable(false);
+            materialNameField.setText(String.valueOf(materialObject.get("name")));
+            materialNameField.setHorizontalAlignment(JTextField.CENTER);
+            materialNameField.setPreferredSize(new Dimension(100, 20));
+
+            /* material Icon */
+            String iconpath = "src/image/icon/material/";
+            ImageIcon materialIcon = new ImageIcon(iconpath + String.valueOf(materialObject.get("icon")));
+            JButton materialButtons = new JButton(materialIcon);
+            materialButtons.setBackground(Color.WHITE);
+            materialButtons.setBorderPainted(false);
+            materialButtons.setPreferredSize(new Dimension(101,102));
+            materialButtons.addActionListener(actionEvent);
+
+            /* Add Panel */
+            JPanel materialCompoments = new JPanel();
+            materialCompoments.setLayout(new BorderLayout());
+
+            materialCompoments.add(materialNameField, BorderLayout.NORTH);
+            materialCompoments.add(materialButtons, BorderLayout.CENTER);
+            materiallistPanel.add(materialCompoments);
+        }
+
+
+        /* Set material_Panel */
+        JTextField materialName = new JTextField();
+        materialName.setText(filename.toUpperCase());
+        materialName.setBackground(Color.decode("#AAAAFF"));
+        materialName.setHorizontalAlignment(JTextField.CENTER);
+        materialName.setEditable(false);
+        material_Panel.add(materialName, BorderLayout.NORTH);
+        material_Panel.add(materiallistPanel, BorderLayout.CENTER);
+
+        return material_Panel;
     }
 
     @Override

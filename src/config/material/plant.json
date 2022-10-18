@@ -1,7 +1,7 @@
 {
   "plant_1": {
     "name": "red herb",
-    "icon": "plant_01.png",
+    "icon": "plant_1.png",
     "type": "plant",
     "impurity" : 1,
     "essence": {
@@ -10,7 +10,7 @@
   },
   "plant_2": {
     "name": "ember herb",
-    "icon": "plant_02.png",
+    "icon": "plant_2.png",
     "type": "plant",
     "essence": {
       "healing": 3,
@@ -19,7 +19,7 @@
   },
   "plant_3": {
     "name": "green herb",
-    "icon": "plant_03.png",
+    "icon": "plant_3.png",
     "type": "plant",
     "essence": {
       "healing": 13
@@ -27,7 +27,7 @@
   },
   "plant_4": {
     "name": "purple herb",
-    "icon": "plant_04.png",
+    "icon": "plant_4.png",
     "type": "plant",
     "essence": {
       "healing": 6,
@@ -36,7 +36,7 @@
   },
   "plant_5": {
     "name": "cinder herb",
-    "icon": "plant_05.png",
+    "icon": "plant_5.png",
     "type": "plant",
     "essence": {
       "healing": 7,
@@ -45,7 +45,7 @@
   },
   "plant_6": {
     "name": "maple herb",
-    "icon": "plant_06.png",
+    "icon": "plant_6.png",
     "type": "plant",
     "essence": {
       "healing": 2,
@@ -54,7 +54,7 @@
   },
   "plant_7": {
     "name": "skyberry",
-    "icon": "plant_07.png",
+    "icon": "plant_7.png",
     "type": "plant",
     "essence": {
       "healing": 11,

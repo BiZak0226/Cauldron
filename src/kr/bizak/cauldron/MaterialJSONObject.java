@@ -12,9 +12,9 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 
-public class MaterialDAO extends GUI{
+public class MaterialJSONObject {
 
-    public MaterialDAO(/*JSONObject jsonObject*/){
+    public MaterialJSONObject(/*JSONObject jsonObject*/){
         /* Search File List */
         File dir;
         String path = "src/config/material/";
@@ -24,7 +24,9 @@ public class MaterialDAO extends GUI{
 
         for (int i = 0; i < file.length; i++) {
             String dummyString = String.valueOf(file[i]);
-            System.out.println("\n[SYSTEM] :: READ FILE / "+dummyString.toString());
+            dummyString = dummyString.substring(path.length());
+
+//            System.out.println("\n[SYSTEM] :: READ FILE / "+dummyString);
 
             Reader reader;
             JSONObject obj;
@@ -72,8 +74,8 @@ public class MaterialDAO extends GUI{
                 }
             /* View Object Data */
             for (int j = 0; j < material.length; j++) {
-                System.out.println("[System] :: " + material[j].toString());
-                System.out.println();
+//                System.out.println("[System] :: " + material[j].toString());
+//                System.out.println();
 
             }
 

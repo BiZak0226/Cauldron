@@ -1,0 +1,21 @@
+Essence:
+  Healing : 회복력
+    - 체력 회복, 생명력 회복 등에 관여
+  Fire : 화염
+    - 화염 속성 관련에 영향
+  Poison : 독성
+    - 일정 수치 이상의 값을 가지면 포션이 독으로 변한다.
+  Vitality : 활력
+    -
+  Strength:
+    -
+  Purification :
+    -
+  Chill:
+  Heat:
+  reversal:
+  Solar:
+  Lunar:
+  Luck:
+  Stability:
+  Growth:

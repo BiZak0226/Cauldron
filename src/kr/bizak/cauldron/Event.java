@@ -1,9 +1,16 @@
 package kr.bizak.cauldron;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileReader;
+import java.io.Reader;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Event /*extends GUI*/ implements ActionListener {
     /* Material */
@@ -19,86 +26,62 @@ public class Event /*extends GUI*/ implements ActionListener {
 
     /* Event */
     @Override
-    public void actionPerformed(ActionEvent e) {
-
+    public void actionPerformed(ActionEvent ae) {
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
         /* Select plant Button */
-        JButton button = (JButton) e.getSource();
+        JButton button = (JButton) ae.getSource();
 
-            String plantname = button.getIcon().toString();
-            plantname = plantname.substring(24, plantname.length()-4);
+        String materialname = button.getIcon().toString();
+        materialname = materialname.substring(24, materialname.length()-4);
 
-            if (plantname.equals("plant_1")){
-                if (essence.containsKey("healing")){
-                    essence.put("healing", essence.get("healing")+6);
-                }else{
-                    essence.put("healing", 6);
-                }
-            }else if (plantname.equals("plant_2")){
-                if (essence.containsKey("healing")){
-                    essence.put("healing", essence.get("healing")+3);
-                }else{
-                    essence.put("healing", 3);
-                }
-                if (essence.containsKey("fire")){
-                    essence.put("fire", essence.get("fire")+6);
-                }else{
-                    essence.put("fire", 6);
-                }
-            }else if (plantname.equals("plant_3")){
-                if (essence.containsKey("healing")){
-                    essence.put("healing", essence.get("healing")+14);
-                }else{
-                    essence.put("healing", 14);
-                }
-            }else if(plantname.equals("plant_4")) {
-                if (essence.containsKey("healing")) {
-                    essence.put("healing", essence.get("healing") + 21);
-                } else {
-                    essence.put("healing", 21);
-                }
+        System.out.println(materialname);
+        System.out.println(materialname.substring(0,materialname.length()-2)
+        );
+        File dir;
+        String path = "src/config/material/";
+        File[] file;
+        dir = new File(path);
+        file = dir.listFiles();
 
-                if (essence.containsKey("poison")) {
-                    essence.put("poison", essence.get("poison") + 8);
-                } else {
-                    essence.put("poison", 8);
-                }
-            }else if (plantname.equals("plant_5")){
-                if (essence.containsKey("healing")){
-                    essence.put("healing", essence.get("healing")+4);
-                }else{
-                    essence.put("healing", 4);
-                }
-                if (essence.containsKey("fire")){
-                    essence.put("fire", essence.get("fire")+15);
-                }else{
-                    essence.put("fire", 15);
-                }
-            }else if (plantname.equals("plant_6")){
-                if (essence.containsKey("healing")){
-                    essence.put("healing", essence.get("healing")+2);
-                }else{
-                    essence.put("healing", 2);
-                }
-                if (essence.containsKey("sugar")){
-                    essence.put("sugar", essence.get("sugar")+14);
-                }else{
-                    essence.put("sugar", 14);
-                }
-            }else if (plantname.equals("plant_7")){
-                if (essence.containsKey("healing")){
-                    essence.put("healing", essence.get("healing")+7);
-                }else{
-                    essence.put("healing", 7);
-                }
-                if (essence.containsKey("poison")){
-                    essence.put("poison", essence.get("poison")-15);
-                }else{
-                    essence.put("poison", -13);
+        Reader reader = null;
+        JSONObject jsonObject = null;
+        JSONObject materialObject, essenceObject;
+
+        /* Load JSON */
+        try {
+            for (int i = 0; i < file.length; i++) {
+                System.out.println(file[i]);
+                System.out.println(String.valueOf(file[i]).contains(materialname.substring(0,materialname.length()-2)));
+
+
+                if (String.valueOf(file[i]).contains(materialname.substring(0,materialname.length()-2))){
+                    reader = new FileReader(file[i]);
+                    jsonObject = (JSONObject)new JSONParser().parse(reader);
+                    materialObject = (JSONObject)jsonObject.get(materialname);
+                    essenceObject = (JSONObject) materialObject.get("essence");
+                    Iterator essenceKey = essenceObject.keySet().iterator();
+
+                    while (essenceKey.hasNext()){
+                        String key = essenceKey.next().toString();
+                        int value = (int) essenceObject.get(key);
+                        System.out.println("[SYSTEM:: Event Compoment Essence /" + essenceKey);
+                        if (essence.containsKey(key)){
+
+                        }else{
+                            int e_int = (int) essenceObject.get(key);
+//                    essence.put(e_int);
+                        }
+                    }
                 }
             }
-            if (!plantname.contains("empty")){
-                System.out.println("[Event]:: input "+ plantname + " size : " + essence.size() +" / Essence -> " + essence);
-            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }

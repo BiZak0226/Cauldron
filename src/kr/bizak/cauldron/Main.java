@@ -4,9 +4,9 @@ public class Main {
 
     public static void main(String[] args) {
         /* Gey JSON Data */
-        MaterialDAO dao = new MaterialDAO();
+        MaterialJSONObject mjo = new MaterialJSONObject();
 
         /* Call GUI */
-//        new GUI();
+        new GUI();
     }
 }
