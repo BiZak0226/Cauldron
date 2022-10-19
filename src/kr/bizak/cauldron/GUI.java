@@ -4,6 +4,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -157,10 +158,16 @@ public class GUI extends JFrame implements ActionListener{
 
         materialGrid = new GridLayout(jsonObject.size()/3+1, 3);
         materiallistPanel.setLayout(materialGrid);
+        materiallistPanel.setBorder(new LineBorder(Color.RED, 5,true));
 
         /* Create Compoment */
-        for (int i = 0; i < jsonObject.size(); i++) {
-            materialObject = (JSONObject) jsonObject.get(filename+"_"+(i+1));
+        int grid = materialGrid.getColumns() * materialGrid.getRows();
+        for (int i = 1; i < grid+1; i++) {
+            int dummyCount = i;
+            if (dummyCount >= jsonObject.size()){
+                dummyCount = 0;
+            }
+            materialObject = (JSONObject) jsonObject.get(filename+"_"+(dummyCount));
 
             System.out.println(materialObject.get("name"));
 
@@ -193,9 +200,16 @@ public class GUI extends JFrame implements ActionListener{
         /* Set material_Panel */
         JTextField materialName = new JTextField();
         materialName.setText(filename.toUpperCase());
-        materialName.setBackground(Color.decode("#AAAAFF"));
+
+        if (filename.equals("mineral")){
+            materialName.setBackground(Color.decode("#CCCCFF"));
+        }else if (filename.equals("plant")){
+            materialName.setBackground(Color.decode("#BBFFBB"));
+
+        }
         materialName.setHorizontalAlignment(JTextField.CENTER);
         materialName.setEditable(false);
+
         material_Panel.add(materialName, BorderLayout.NORTH);
         material_Panel.add(materiallistPanel, BorderLayout.CENTER);
 

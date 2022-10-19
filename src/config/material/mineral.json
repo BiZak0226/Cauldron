@@ -1,4 +1,12 @@
 {
+  "mineral_0": {
+    "name": "mineral_empty",
+    "icon": "mineral_0.png",
+    "type": "mineral",
+    "essence": {
+      "void": 0
+    }
+  },
   "mineral_1": {
     "name": "crystal",
     "icon": "mineral_5.png",
@@ -8,7 +16,7 @@
     }
   },
   "mineral_2": {
-    "name": "empty_mineral",
+    "name": "pale_mineral",
     "icon": "mineral_0.png",
     "type": "mineral",
     "essence": {
@@ -16,6 +24,14 @@
     }
   },
   "mineral_3": {
+    "name": "mineral",
+    "icon": "mineral_1.png",
+    "type": "mineral",
+    "essence": {
+      "void": 0
+    }
+  },
+  "mineral_4": {
     "name": "mineral",
     "icon": "mineral_1.png",
     "type": "mineral",
