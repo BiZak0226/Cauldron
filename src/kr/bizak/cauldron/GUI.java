@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
 
-public class GUI extends JFrame implements ActionListener{
+public class GUI extends JFrame{
     Event actionEvent = new Event();
     Recipe actionRecipe = new Recipe();
 
@@ -34,8 +34,8 @@ public class GUI extends JFrame implements ActionListener{
     /* ========#========# BorderLayout South Area #========#======== */
     JPanel southPanel;
     JTextArea resultArea;
+    JScrollPane southScrollPanel;
 
-//    MaterialDAO materalData = new MaterialDAO();
 
     public GUI() {
         /* Create Container */
@@ -74,14 +74,15 @@ public class GUI extends JFrame implements ActionListener{
         file = dir.listFiles();
 
         materialPanel.setLayout(new BoxLayout(materialPanel, BoxLayout.Y_AXIS));
-//        materialPanel.setLayout(new GridLayout(file.length, 1));
 
+        /* Create Material Component */
         for (int i = 0; i < file.length; i++) {
-            materialPanel.add(createCompoment(file[i]));
+            materialPanel.add(createComponent(file[i]));
         }
 
         materialScrollPanel.setPreferredSize(new Dimension(materialPanel.getPreferredSize().width+18, 350));
         materialScrollPanel.setViewportView(materialPanel);
+        materialScrollPanel.getVerticalScrollBar().setUnitIncrement(10);
         materialScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 
@@ -97,7 +98,7 @@ public class GUI extends JFrame implements ActionListener{
         caulB = new JButton("cauldron");
         caulB.setBorderPainted(false);
         caulB.setPreferredSize(new Dimension(300, 50));
-        caulB.addActionListener(this);
+        caulB.addActionListener(new Generate());
 
         cauldronPanel.add(cauldronLabel, BorderLayout.NORTH);
         cauldronPanel.add(caulB, BorderLayout.SOUTH);
@@ -111,9 +112,13 @@ public class GUI extends JFrame implements ActionListener{
         southPanel.setLayout(new GridLayout());
         resultArea = new JTextArea(10, 30);
         resultArea.setEditable(false);
-        resultArea.setSize(new Window(this).getWidth(), 100);
+        resultArea.setSize(500, 100);
 
-        southPanel.add(resultArea);
+        southScrollPanel = new JScrollPane();
+        southScrollPanel.setViewportView(resultArea);
+        southScrollPanel.getVerticalScrollBar().setUnitIncrement(8);
+        southScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        southPanel.add(southScrollPanel);
 
 
 
@@ -132,7 +137,7 @@ public class GUI extends JFrame implements ActionListener{
         setVisible(true);
     }
 
-    private Component createCompoment(File file) {
+    private Component createComponent(File file) {
         JPanel material_Panel = new JPanel();
 
         material_Panel.setLayout(new BorderLayout());
@@ -169,8 +174,6 @@ public class GUI extends JFrame implements ActionListener{
             }
             materialObject = (JSONObject) jsonObject.get(filename+"_"+(dummyCount));
 
-            System.out.println(materialObject.get("name"));
-
             /* material DisplayName */
             JTextField materialNameField = new JTextField();
             materialNameField.setEditable(false);
@@ -185,7 +188,7 @@ public class GUI extends JFrame implements ActionListener{
             materialButtons.setBackground(Color.WHITE);
             materialButtons.setBorderPainted(false);
             materialButtons.setPreferredSize(new Dimension(101,102));
-            materialButtons.addActionListener(actionEvent);
+            materialButtons.addActionListener(new Selection());
 
             /* Add Panel */
             JPanel materialCompoments = new JPanel();
@@ -209,6 +212,7 @@ public class GUI extends JFrame implements ActionListener{
         }
         materialName.setHorizontalAlignment(JTextField.CENTER);
         materialName.setEditable(false);
+        materialName.setFont(new Font(materialName.getFont().getFontName(), Font.BOLD, 20));
 
         material_Panel.add(materialName, BorderLayout.NORTH);
         material_Panel.add(materiallistPanel, BorderLayout.CENTER);
@@ -216,16 +220,29 @@ public class GUI extends JFrame implements ActionListener{
         return material_Panel;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        actionRecipe.setEssence(actionEvent.getEssence());
-        actionRecipe.Recipe();
-        resultArea.setText(resultArea.getText() + actionEvent.getEssence().toString() + "\n");
-        actionEvent.clearEssence();
+    private class Generate implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            actionRecipe.setEssence(actionEvent.getEssence());
+            actionEvent.impurity = 0;
+            actionRecipe.Recipe();
+            resultArea.setText(resultArea.getText() + actionEvent.getEssence().toString() + "\n");
+            actionEvent.clearEssence();
+        }
     }
 
+    private class Selection implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            JButton button = (JButton) ae.getSource();
 
+            String materialname = button.getIcon().toString();
+            actionEvent.Event(materialname);
+            if (!actionEvent.getEvent().equals("")){
+                resultArea.setText(resultArea.getText() + "[EVENT]:: Select <" + actionEvent.getEvent() + ">\n");
+            }
 
-
+        }
+    }
 
 }

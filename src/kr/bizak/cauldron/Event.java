@@ -3,37 +3,32 @@ package kr.bizak.cauldron;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class Event /*extends GUI*/ implements ActionListener {
+public class Event {
     /* Material */
+    String dummy = "";
 
 
     /* Cauldron */
     HashMap<String, Integer> essence = new HashMap<>();
-    int impurity = 0;
+    double impurity = 0.0;
 
     public HashMap<String, Integer> getEssence() { return essence; }
     public void setEssence(HashMap<String, Integer> essence) { this.essence = essence; }
     public void clearEssence() { this.essence.clear(); }
 
-
-    /* Event */
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        /* Select plant Button */
-        JButton button = (JButton) ae.getSource();
-
-        String materialname = button.getIcon().toString();
+    public void Event(String materialname){
+        /* Event */
+        dummy = "";
+        if (impurity>=6.5){
+            return;
+        }
         materialname = materialname.substring(24, materialname.length()-4);
-        String dummy = "";
 
         File dir;
         String path = "src/config/material/";
@@ -41,8 +36,8 @@ public class Event /*extends GUI*/ implements ActionListener {
         dir = new File(path);
         file = dir.listFiles();
 
-        Reader reader = null;
-        JSONObject jsonObject = null;
+        Reader reader;
+        JSONObject jsonObject;
         JSONObject materialObject, essenceObject;
         materialObject = new JSONObject();
 
@@ -75,13 +70,19 @@ public class Event /*extends GUI*/ implements ActionListener {
                             essence.put(key, value);
                         }
                     }
+                    impurity += Double.valueOf(String.valueOf(materialObject.get("impurity")));
                 }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("[System]:: Input < " + dummy + " > Essence : " + essence);
-
+        if (!dummy.contains("empty")){
+            System.out.println("[System]:: Input < " + dummy + " > Essence : " + essence + " impurity : " + impurity);
+        }
+    }
+    public String getEvent(){
+        if (dummy.contains("empty")){ return ""; }
+        return dummy;
     }
 }

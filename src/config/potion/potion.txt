@@ -1,31 +1,32 @@
 Potion:
-	faint_red_potion:
+	red_potion:
 		name: faint_healing_potion
+		quality: faint
 		essence:
 			healing: 26, 40
 		effects:
 			healing: 66
-	weak_red_potion:
+	ed_potion:
     	name: weak_healing_potion
     	essence:
     		healing: 26, 40
     	effects:
     		healing: 66
-	standard_red_potion:
+	red_potion:
 		name: standard_red_potion
 		essence:
 			healing: 62, 87
 		effects:
 			healing: 149
 
-	useful_red_potion:
+	red_potion:
 		name: useful_red_potion
 		essence:
 			healing: 93, 126
 		effects:
 			healing: 319
 			
-	faint_yellow_potion:
+	yellow_potion:
 		name: low_yellow_potion
 		essence:
 			healing: 16, 23
@@ -34,7 +35,7 @@ Potion:
 			healing: 39
 			fire_resistance: 1, 60
 			
-	faint_purple_potion:
+	purple_potion:
 		name: faint_poison_potion
 		essence: 
 			poison: 30
