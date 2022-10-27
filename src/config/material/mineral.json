@@ -3,6 +3,7 @@
     "name": "mineral_empty",
     "icon": "mineral_0.png",
     "type": "mineral",
+    "impurity" : 0.0,
     "essence": {
       "void": 0
     }
@@ -11,14 +12,16 @@
     "name": "crystal",
     "icon": "mineral_5.png",
     "type": "mineral",
+    "impurity" : 0.0,
     "essence": {
       "void": 0
     }
   },
   "mineral_2": {
     "name": "pale_mineral",
-    "icon": "mineral_0.png",
+    "icon": "mineral_2.png",
     "type": "mineral",
+    "impurity" : 0.0,
     "essence": {
       "void": 0
     }
@@ -27,14 +30,16 @@
     "name": "mineral",
     "icon": "mineral_1.png",
     "type": "mineral",
+    "impurity" : 0.0,
     "essence": {
       "void": 0
     }
   },
   "mineral_4": {
-    "name": "mineral",
+    "name": "minerals",
     "icon": "mineral_1.png",
     "type": "mineral",
+    "impurity" : 0.0,
     "essence": {
       "void": 0
     }

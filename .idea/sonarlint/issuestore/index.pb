@@ -11,5 +11,3 @@ F
 -src/kr/bizak/cauldron/MaterialJSONObject.java,7\c\7c8d46e7ba3870b61e24e506c70cb7fbb11e3b37
 <
 Cauldron.iml,c\f\cf0be1c41f5989991a4ef5039dec69d99267e55c
-Q
-!src/kr/bizak/cauldron/Recipe.java,9\6\965fd6b77936cabdd471c697bac0a56e101f662d

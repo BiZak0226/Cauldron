@@ -9,10 +9,17 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class Event {
+public class SelectEvent {
     /* Material */
     String dummy = "";
 
+    Reader reader;
+    JSONObject jsonObject;
+    JSONObject materialObject, essenceObject;
+
+    File dir;
+    String path = "src/config/material/";
+    File[] file;
 
     /* Cauldron */
     HashMap<String, Integer> essence = new HashMap<>();
@@ -22,24 +29,16 @@ public class Event {
     public void setEssence(HashMap<String, Integer> essence) { this.essence = essence; }
     public void clearEssence() { this.essence.clear(); }
 
-    public void Event(String materialname){
+    public void SelectEvent(String materialname){
         /* Event */
         dummy = "";
         if (impurity>=6.5){
             return;
         }
         materialname = materialname.substring(24, materialname.length()-4);
-
-        File dir;
-        String path = "src/config/material/";
-        File[] file;
+        System.out.println("materialname :: " + materialname);
         dir = new File(path);
         file = dir.listFiles();
-
-        Reader reader;
-        JSONObject jsonObject;
-        JSONObject materialObject, essenceObject;
-        materialObject = new JSONObject();
 
         /* Load JSON */
         try {

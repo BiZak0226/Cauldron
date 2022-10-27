@@ -4,7 +4,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +12,7 @@ import java.io.FileReader;
 import java.io.Reader;
 
 public class GUI extends JFrame{
-    Event actionEvent = new Event();
+    SelectEvent actionEvent = new SelectEvent();
     Recipe actionRecipe = new Recipe();
 
     /* ========#========# BorderLayout North Area #========#======== */
@@ -33,8 +32,10 @@ public class GUI extends JFrame{
 
     /* ========#========# BorderLayout South Area #========#======== */
     JPanel southPanel;
-    JTextArea resultArea;
-    JScrollPane southScrollPanel;
+    JScrollPane trayScrollPanel;
+    JPanel trayPanel;
+    JTextArea resultTextArea;
+    JScrollPane resultScrollPanel;
 
 
     public GUI() {
@@ -80,6 +81,9 @@ public class GUI extends JFrame{
             materialPanel.add(createComponent(file[i]));
         }
 
+        System.out.println(materialPanel.getPreferredSize().width);
+        System.out.println(materialPanel.getPreferredSize().width+18);
+
         materialScrollPanel.setPreferredSize(new Dimension(materialPanel.getPreferredSize().width+18, 350));
         materialScrollPanel.setViewportView(materialPanel);
         materialScrollPanel.getVerticalScrollBar().setUnitIncrement(10);
@@ -95,30 +99,58 @@ public class GUI extends JFrame{
         calldronImage = new ImageIcon("src/image/icon/system/cauldron.png");
         cauldronLabel = new JLabel();
         cauldronLabel.setIcon(calldronImage);
+
         caulB = new JButton("cauldron");
         caulB.setBorderPainted(false);
         caulB.setPreferredSize(new Dimension(300, 50));
         caulB.addActionListener(new Generate());
 
-        cauldronPanel.add(cauldronLabel, BorderLayout.NORTH);
+        JButton caulImageButton = new JButton(calldronImage);
+//        caulImageButton.setEnabled(false);
+        caulImageButton.setBackground(Color.WHITE);
+        caulImageButton.setBorderPainted(false);
+
+
+//        cauldronPanel.add(cauldronLabel, BorderLayout.NORTH);
+        cauldronPanel.add(caulImageButton, BorderLayout.CENTER);
         cauldronPanel.add(caulB, BorderLayout.SOUTH);
-
-
 
         /* ========#========# BorderLayout South Area #========#======== */
 
         /* Panel */
         southPanel = new JPanel();
-        southPanel.setLayout(new GridLayout());
-        resultArea = new JTextArea(10, 30);
-        resultArea.setEditable(false);
-        resultArea.setSize(500, 100);
+        southPanel.setLayout(new BorderLayout());
 
-        southScrollPanel = new JScrollPane();
-        southScrollPanel.setViewportView(resultArea);
-        southScrollPanel.getVerticalScrollBar().setUnitIncrement(8);
-        southScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        southPanel.add(southScrollPanel);
+        trayPanel = new JPanel();
+        trayPanel.setLayout(new GridLayout(1,5));
+        trayPanel.setPreferredSize(new Dimension(500+10,100));
+
+        /* provisional component */
+        ImageIcon dummyicon;
+        JButton potion;
+        for (int i = 0; i < 5; i++) {
+            dummyicon = new ImageIcon("src/image/icon/potion/100/red_potion_01.png");
+            potion = new JButton(dummyicon);
+            potion.setBackground(Color.WHITE);
+            potion.setBorderPainted(false);
+            trayPanel.add(potion);
+        }
+
+        trayScrollPanel = new JScrollPane();
+        trayScrollPanel.setViewportView(trayPanel);
+
+
+        resultTextArea = new JTextArea(8, 20);
+        resultTextArea.setEditable(false);
+        resultTextArea.setSize(100, 100);
+
+        resultScrollPanel = new JScrollPane();
+        resultScrollPanel.setViewportView(resultTextArea);
+        resultScrollPanel.getVerticalScrollBar().setUnitIncrement(8);
+        resultScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        southPanel.add(trayScrollPanel, BorderLayout.WEST);
+        southPanel.add(resultScrollPanel, BorderLayout.CENTER);
 
 
 
@@ -163,7 +195,8 @@ public class GUI extends JFrame{
 
         materialGrid = new GridLayout(jsonObject.size()/3+1, 3);
         materiallistPanel.setLayout(materialGrid);
-        materiallistPanel.setBorder(new LineBorder(Color.RED, 5,true));
+
+//        materiallistPanel.setBorder(new LineBorder(Color.RED, 5,true));
 
         /* Create Compoment */
         int grid = materialGrid.getColumns() * materialGrid.getRows();
@@ -183,12 +216,16 @@ public class GUI extends JFrame{
 
             /* material Icon */
             String iconpath = "src/image/icon/material/";
-            ImageIcon materialIcon = new ImageIcon(iconpath + String.valueOf(materialObject.get("icon")));
+            ImageIcon materialIcon = new ImageIcon(iconpath + materialObject.get("icon"));
             JButton materialButtons = new JButton(materialIcon);
             materialButtons.setBackground(Color.WHITE);
             materialButtons.setBorderPainted(false);
+            materialButtons.setToolTipText(String.valueOf(materialObject.get("name")));
             materialButtons.setPreferredSize(new Dimension(101,102));
             materialButtons.addActionListener(new Selection());
+            if (dummyCount==0){
+                materialButtons.setEnabled(false);
+            }
 
             /* Add Panel */
             JPanel materialCompoments = new JPanel();
@@ -226,7 +263,7 @@ public class GUI extends JFrame{
             actionRecipe.setEssence(actionEvent.getEssence());
             actionEvent.impurity = 0;
             actionRecipe.Recipe();
-            resultArea.setText(resultArea.getText() + actionEvent.getEssence().toString() + "\n");
+            resultTextArea.setText(resultTextArea.getText() + actionEvent.getEssence().toString() + "\n");
             actionEvent.clearEssence();
         }
     }
@@ -235,11 +272,11 @@ public class GUI extends JFrame{
         @Override
         public void actionPerformed(ActionEvent ae) {
             JButton button = (JButton) ae.getSource();
-
             String materialname = button.getIcon().toString();
-            actionEvent.Event(materialname);
+
+            actionEvent.SelectEvent(materialname);
             if (!actionEvent.getEvent().equals("")){
-                resultArea.setText(resultArea.getText() + "[EVENT]:: Select <" + actionEvent.getEvent() + ">\n");
+                resultTextArea.setText(resultTextArea.getText() + "[EVENT]:: Select <" + actionEvent.getEvent() + ">\n");
             }
 
         }
