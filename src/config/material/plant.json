@@ -3,7 +3,7 @@
     "name": "plant empty",
     "icon": "plant_0.png",
     "type": "plant",
-    "impurity" : 0.0,
+    "impurity" : 0,
     "essence": {
       "void": 0
     }
@@ -12,7 +12,7 @@
     "name": "red herb",
     "icon": "plant_1.png",
     "type": "plant",
-    "impurity" : 1.1,
+    "impurity" : 11,
     "essence": {
       "healing": 6
     }
@@ -21,7 +21,7 @@
     "name": "ember herb",
     "icon": "plant_2.png",
     "type": "plant",
-    "impurity" : 0.9,
+    "impurity" : 9,
     "essence": {
       "healing": 3,
       "fire": 9
@@ -31,7 +31,7 @@
     "name": "green herb",
     "icon": "plant_3.png",
     "type": "plant",
-    "impurity" : 1.6,
+    "impurity" : 16,
     "essence": {
       "healing": 17
     }
@@ -40,7 +40,7 @@
     "name": "purple herb",
     "icon": "plant_4.png",
     "type": "plant",
-    "impurity" : 1.2,
+    "impurity" : 12,
     "essence": {
       "healing": 19,
       "poison": 17
@@ -50,7 +50,7 @@
     "name": "cinder herb",
     "icon": "plant_5.png",
     "type": "plant",
-    "impurity" : 2.4,
+    "impurity" : 24,
     "essence": {
       "healing": 7,
       "fire": 19
@@ -60,7 +60,7 @@
     "name": "maple herb",
     "icon": "plant_6.png",
     "type": "plant",
-    "impurity" : 1.4,
+    "impurity" : 14,
     "essence": {
       "healing": 2,
       "sugar": 7
@@ -70,7 +70,7 @@
     "name": "skyberry",
     "icon": "plant_7.png",
     "type": "plant",
-    "impurity" : 2.1,
+    "impurity" : 21,
     "essence": {
       "healing": 11,
       "poison": -27

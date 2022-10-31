@@ -23,7 +23,7 @@ public class SelectEvent {
 
     /* Cauldron */
     HashMap<String, Integer> essence = new HashMap<>();
-    double impurity = 0.0;
+    int impurity = 0;
 
     public HashMap<String, Integer> getEssence() { return essence; }
     public void setEssence(HashMap<String, Integer> essence) { this.essence = essence; }
@@ -32,7 +32,7 @@ public class SelectEvent {
     public void SelectEvent(String materialname){
         /* Event */
         dummy = "";
-        if (impurity>=6.5){
+        if (impurity>=100){
             return;
         }
         materialname = materialname.substring(24, materialname.length()-4);
@@ -69,7 +69,7 @@ public class SelectEvent {
                             essence.put(key, value);
                         }
                     }
-                    impurity += Double.valueOf(String.valueOf(materialObject.get("impurity")));
+                    impurity += Integer.valueOf(String.valueOf(materialObject.get("impurity")));
                 }
             }
 

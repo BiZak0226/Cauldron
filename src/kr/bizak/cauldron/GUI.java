@@ -129,7 +129,7 @@ public class GUI extends JFrame{
         ImageIcon dummyicon;
         JButton potion;
         for (int i = 0; i < 5; i++) {
-            dummyicon = new ImageIcon("src/image/icon/potion/100/red_potion_01.png");
+            dummyicon = new ImageIcon("src/image/icon/potion/100/round-potion-empty.png");
             potion = new JButton(dummyicon);
             potion.setBackground(Color.WHITE);
             potion.setBorderPainted(false);

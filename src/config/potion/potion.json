@@ -1,0 +1,74 @@
+{
+        "healing_potion_1":{
+            "name": "Red  Potion",
+            "quality" : "Feeble",
+            "essence" :{
+                "healing" : [16, 34]
+            },
+            "effects":{
+                "healing": 23
+            }
+        },
+        "healing_potion_2":{
+            "name": "Red  Potion",
+            "quality" : "Crude",
+            "essence" :{
+                "healing" : [35, 68]
+            },
+            "effects":{
+                "healing": 52
+            }
+        },
+        "healing_potion_3":{
+            "name": "Red  Potion",
+            "quality" : "Proper",
+            "essence" :{
+                "healing" : [69, 117]
+            },
+            "effects":{
+                "healing": 107
+            }
+        },
+        "healing_potion_4":{
+            "name": "Red  Potion",
+            "quality" : "Fine",
+            "essence" :{
+                "healing" : [26, 40]
+            },
+            "effects":{
+                "healing": 66
+            }
+        },
+        "healing_potion_5":{
+            "name": "Red  Potion",
+            "quality" : "Useful",
+            "essence" :{
+                "healing" : [26, 40]
+            },
+            "effects":{
+                "healing": 66
+            }
+        },
+        "yellow_potion":{
+            "name": "Yellow Potion",
+            "quality" : "Feeble",
+            "essence":{
+                "healing": [16, 23],
+                "fire": 16},
+            "effects":{
+                "healing": 39,
+                "fire_resistance": [1, 60]
+                }
+            },
+        "purple_potion":{
+            "name": "Poison Potion",
+            "quality" : "Feeble",
+            "essence": {
+                "poison": [30, 68]
+            },
+            "effects":{
+                "poison": [1, 40],
+                "damage": 43}
+        }
+    
+}

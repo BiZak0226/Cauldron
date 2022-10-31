@@ -1,0 +1,19 @@
+
+E
+java:S3740)"/Provide the parametrized type for this generic.(›ŸØØ
+J
+java:S37401"/Provide the parametrized type for this generic.(œ‹½ñùÿÿÿÿ
+E
+java:S37408"/Provide the parametrized type for this generic.(û†Ü¹
+f	java:S117C"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯æî¢
+7
+java:S1643="Use a StringBuilder instead.(Ù›Âãüÿÿÿÿ
+e
+java:S2095$"HUse try-with-resources or close this "FileReader" in a "finally" clause.(Ÿö¡8ãŸ‹¥¾0
+F
+java:S1659!"+Declare "essenceObject" on a separate line.(Ç®™Øşÿÿÿÿ
+]	java:S125"<This block of commented-out lines of code should be removed.(ÙÎ¡ úÿÿÿÿ8ÊÑ³Ç¾0
+Q	java:S125/"<This block of commented-out lines of code should be removed.(ÀØÜ¶
+J
+java:S14811"(Remove this unused "key" local variable.(œ‹½ñùÿÿÿÿ8ìŸ‹¥¾0
+X	java:S125M"<This block of commented-out lines of code should be removed.(€Íé8´Ç¾0
